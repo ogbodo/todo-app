@@ -1,11 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import TodoList from './screens/todo-list';
+import { QueryClientProvider, QueryClient } from 'react-query'
+import { RecoilRoot } from 'recoil'
+import AppNavigator from './screens/navigation';
 
 export default function App() {
+  const client = new QueryClient()
+
   return (
-    <TodoList />
+    <QueryClientProvider client={client} >
+      <RecoilRoot>
+        <AppNavigator />
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
 
