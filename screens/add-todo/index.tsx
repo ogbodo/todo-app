@@ -7,18 +7,8 @@ export default function AddTodoScreen() {
   const [state, setState] = useState({ title: '', description: '' })
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmitTodo = () => {
-    axios.post(`${END_POINT}?ownerEmail=solomon@gmail.com`, state)
-      .then((response) => {
-        console.log(response.data);
-        setIsLoading(false)
-      }).catch((error) => {
-        console.log(error);
-      })
-    setIsLoading(true)
-  }
 
-  const handleSubmitTodo2 = async () => {
+  const handleSubmitTodo = async () => {
     try {
       setIsLoading(true)
       const response = await axios.post(`${END_POINT}?ownerEmail=solomon@gmail.com`, state)
@@ -29,8 +19,6 @@ export default function AddTodoScreen() {
     }
   }
 
-  new Promise(() => { })
-
   return <View style={styles.container}>
     <TextInput placeholder="Enter title" style={styles.input} onChangeText={(title) => {
       setState({ ...state, title })
@@ -39,7 +27,7 @@ export default function AddTodoScreen() {
       setState({ ...state, description })
     }} />
     <Button title="submit" onPress={() => {
-      handleSubmitTodo2()
+      handleSubmitTodo()
     }} color="green" />
     {isLoading ? <ActivityIndicator color="red" /> : null}
   </View>

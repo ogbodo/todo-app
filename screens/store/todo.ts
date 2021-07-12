@@ -4,5 +4,5 @@ import { ITodo } from "./types";
 
 export const todoState = atom<ITodo[]>({
   key: TODO_ATOM_KEY,
-  default: [],
+  default: [{ title: "first title", description: "one description" }],
 });
