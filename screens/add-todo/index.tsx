@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, Button, ActivityIndicator } from 'react-native'
-import axios from 'axios'
-import { END_POINT } from '../../constants'
+import showToast from "../../components/toast";
+import { usePostTodo } from '../../server';
 
 export default function AddTodoScreen() {
   const [state, setState] = useState({ title: '', description: '' })
-  const [isLoading, setIsLoading] = useState(false)
-
+  const { isLoading, mutateAsync } = usePostTodo()
 
   const handleSubmitTodo = async () => {
     try {
-      setIsLoading(true)
-      const response = await axios.post(`${END_POINT}?ownerEmail=solomon@gmail.com`, state)
+      const response = await mutateAsync(state)
       console.log(response.data);
-      setIsLoading(false)
+      showToast(response.data.message)
     } catch (error) {
       console.log(error);
     }
